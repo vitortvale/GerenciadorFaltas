@@ -30,14 +30,14 @@ const materia3: ClassProps = {
 export default function Main() {
   return (
     <div>
-      <div className="p-3 flex justify-end ">
+      <div className="p-3 flex justify-end border-b-1 border-zinc-5">
         <RegisterButton/>
         <LoginButton/>
       </div>
       <Phrase/>
       <Cto/>
-      <div className="container mx-auto ">
-        <div className="flex flex-row justify-center space-x-10 border-2 rounded-4xl  p-20 bg-zinc-100">
+      <div className="container mx-auto flex justify-center">
+        <div className="flex flex-row justify-center space-x-10 border-2 rounded-4xl p-20 bg-white w-min">
           <Class {...materia1}/>
           <Class {...materia2}/>
           <Class {...materia3}/>
