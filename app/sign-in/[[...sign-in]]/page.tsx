@@ -1,32 +1,72 @@
 'use client'
 
-import * as Clerk from '@clerk/elements/common'
-import * as SignIn from '@clerk/elements/sign-in'
-import { Onest } from 'next/font/google'
+import * as React from 'react'
+import { useSignIn } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
-const onest = Onest()
+export default function SignInForm() {
+  const { isLoaded, signIn, setActive } = useSignIn()
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const router = useRouter()
 
-//https://developers.google.com/identity/branding-guidelines?hl=pt-br
+  // Handle the submission of the sign-in form
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
 
-export default function SignInPage() {
+    if (!isLoaded) return
+
+    // Start the sign-in process using the email and password provided
+    try {
+      const signInAttempt = await signIn.create({
+        identifier: email,
+        password,
+      })
+
+      // If sign-in process is complete, set the created session as active
+      // and redirect the user
+      if (signInAttempt.status === 'complete') {
+        await setActive({ session: signInAttempt.createdSessionId })
+        router.push('/')
+      } else {
+        // If the status is not complete, check why. User may need to
+        // complete further steps.
+        console.error(JSON.stringify(signInAttempt, null, 2))
+      }
+    } catch (err: any) {
+      // See https://clerk.com/docs/custom-flows/error-handling
+      // for more info on error handling
+      console.error(JSON.stringify(err, null, 2))
+    }
+  }
+
+  // Display a form to capture the user's email and password
   return (
-    <div className="flex justify-center">
-    <div className="mt-30 border-2 w-130 h-80 bg-blue-700 border-zinc-400 rounded-md shadow-md shadow-zinc-500">
-        <h1 className="font-black font-[Onest] text-4xl">Faça login para continuar</h1>
-      <div className="flex-column p-8">
-        <div className="flex justify-center mt-40">
-          <SignIn.Root>
-            <SignIn.Step name="start">
-                  <Clerk.Connection name="google">
-                    <div className="text-xl font-medium border-zinc-600 text-zinc-800 w-60 bg-zinc-100 p-3 border-2 rounded-md">
-                      Logar com o Google
-                    </div>
-                  </Clerk.Connection>
-            </SignIn.Step>
-          </SignIn.Root>
+    <>
+      <h1>Sign in</h1>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div>
+          <label htmlFor="email">Enter email address</label>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            id="email"
+            name="email"
+            type="email"
+            value={email}
+          />
         </div>
-      </div>
-    </div>
-    </div>
+        <div>
+          <label htmlFor="password">Enter password</label>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+          />
+        </div>
+        <button type="submit">Sign in</button>
+      </form>
+    </>
   )
 }

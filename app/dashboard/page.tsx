@@ -12,8 +12,11 @@ export default async function Page() {
   const user = await currentUser()
   // Use `user` to render user details or create UI elements
   return (
+    <div>
+      <h1>Olá {user?.username}</h1>
     <div className="flex justify-end">
       <img className="h-20 w-20 rounded-full p-4" src ={user?.imageUrl}></img>
+    </div>
     </div>
   )
 }

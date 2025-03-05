@@ -7,25 +7,26 @@ import Cto from "@/app/components/Cto";
 import AddClassButton from "@/app/components/AddClassButton";
 import AddClassButtonExample from "@/app/components/AddClassButton";
 import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
+import DashboardButton from "./components/DashboardButton";
 
 const materia1: ClassProps = {
   classname: "Organização de Computadores",
   classcode: "DCC070",
-  classdate: "Seg 14-16, Qua 14-16",
+  classdate: "Seg 14-16 | Qua 14-16",
   absences: 4
 };
 
 const materia2: ClassProps = {
   classname: "Cálculo II",
   classcode: "MAT156",
-  classdate: "Ter 14-16, Qui 16-18",
+  classdate: "Ter 14-16 | Qui 16-18",
   absences: 6
 };
 
 const materia3: ClassProps = {
   classname: "Banco de Dados",
   classcode: "DCC060",
-  classdate: "Seg 10-12, Sex 10-12",
+  classdate: "Seg 10-12 | Sex 10-12",
   absences: 2
 };
 
@@ -37,10 +38,10 @@ export default function Main() {
       <div>
         <SignedIn>
           <div className="p-3 flex justify-end border-b-1 border-zinc-5">
-          <SignOutButton>
-            <button>Sair</button>
-          </SignOutButton>
-            <p className="p-3">Dashboard</p>
+            <SignOutButton>
+              <button >Sair</button>
+            </SignOutButton>
+            <DashboardButton />
           </div>
         </SignedIn>
         <SignedOut>
