@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
- 
-// These styles apply to every route in the application
+import { SessionProvider } from "next-auth/react"
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 import './globals.css'
  
 export const metadata: Metadata = {
@@ -14,10 +21,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html>
-      <body>
-        {children}
-     </body>
-  </html>
+    <ClerkProvider>
+      <html>
+        <body>          
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

@@ -10,18 +10,6 @@ export type ClassProps = {
   };
 
 export default function Class( props: ClassProps ) {
-    
-    let shadowcolor;
-    let situation = props.absences
-    if(situation <= 2) {
-         shadowcolor = "shadow-green-400";
-    }
-    else if(situation > 2 && situation <= 4) {
-         shadowcolor = "shadow-yellow-400";
-    }
-    if(situation >= 5) {
-         shadowcolor = "shadow-red-400";
-    }
 
     return (
             <div className="flex-col  text-zinc-800 border-zinc-600 border-2 justify-items-center
