@@ -1,8 +1,5 @@
-TODO:
-Implementar login(next auth - google) conectando com mongodb
----------
-ideas (juice):
-mudar a cor da borda de acordo com o numero de faltas restantes
+
+## Este projeto ainda está sob desenvolvimento, mas sinta-se à vontade para explorar!
 
 ## Deploy on Vercel
 
